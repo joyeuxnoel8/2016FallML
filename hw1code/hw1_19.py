@@ -2,11 +2,9 @@
 This code is for Python 3.x
 Modify your algorithm in Problem 18 to run for 100 updates instead of 50, and 
 verify the performance of wpocket using the test set. Please repeat your 
-experiment for 2000 times, each with a di
-fferent random seed. What is the average 
+experiment for 2000 times, each with a different random seed. What is the average 
 error rate on the test set? Plot a histogram to show error rate versus 
-frequency. Compare your result to Problem 18 and briefly discuss your 
-findings.
+frequency. Compare your result to Problem 18 and briefly discuss your findings.
 """
 
 import numpy as np
@@ -65,7 +63,6 @@ for i in list(range(cycle)):
     indnew = 0
     update = 0
     wErrSum = Sizetest
-    wupdate = 0
 
     Xn = X[indnew,:]
 
@@ -88,7 +85,6 @@ for i in list(range(cycle)):
             if ErrSum < wErrSum:
                 Wpocket = W
                 wErrSum = ErrSum
-                wupdate += 1
         else:
             Xn = X[order[indnew],:]
             Y = Xn*W > 0

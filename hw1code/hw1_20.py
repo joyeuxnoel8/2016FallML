@@ -1,9 +1,10 @@
 """
 This code is for Python 3.x
-Run the pocket algorithm with a total of 50 updates on D, and verify the 
-performance of wpocket using the test set. Please repeat your experiment for 
-2000 times, each with a different random seed. What is the average error rate 
-on the test set? Plot a histogram to show error rate versus frequency
+Modify your algorithm in Problem 19 to return w100 (the PLA vector after 100 updates) instead
+of ^w (the pocket vector) after 100 updates. Run the modified algorithm on D, and verify the
+performance using the test set. Please repeat your experiment for 2000 times, each with a different
+random seed. What is the average error rate on the test set? Plot a histogram to show error rate
+versus frequency. Compare your result to Problem 19 and briefly discuss your findings.
 """
 
 import numpy as np
@@ -48,7 +49,7 @@ Sizetrain = len(TargetY)
 Sizetest = len(TargetYtest)
 cycle = 1
 cycle = 2000
-updatelimit = 50
+updatelimit = 100
 eta = 1
 ErrRate = np.zeros((cycle,1))
 
@@ -77,20 +78,16 @@ for i in list(range(cycle)):
             Xn = X[order[indnew],:]
             Y = Xn*W > 0
             update += 1
-            
-            # Check if update pocket w, using testing datasets
-            Yarray = Xtest*W > 0
-            ErrSum = np.sum( ( TargetYtest>0) != Yarray)
-            if ErrSum < wErrSum:
-                Wpocket = W
-                wErrSum = ErrSum
         else:
             Xn = X[order[indnew],:]
             Y = Xn*W > 0
 
         indlast = indnew
-
-    ErrRate[i] = wErrSum/Sizetest
+    
+    # measure error rate using test set
+    Yarray = Xtest*W > 0
+    ErrSum = np.sum( ( TargetYtest>0) != Yarray)
+    ErrRate[i] = ErrSum/Sizetest
     
     if i%100 == 1:
         print('cycle        ',i)
@@ -103,9 +100,9 @@ print('Average Error Rate   ',np.sum(ErrRate)/cycle)
 # Plot
 import matplotlib.pyplot as plt
 myhist = np.hstack(ErrRate)
-plt.hist(myhist, bins='auto', range=(0,1))
+plt.hist(myhist, bins=100, range=(0,1))
 plt.title("Error Rate - Frequency Plot")
 plt.show()
 
-# Error Rate ~= 0.1 ~ 0.2
-# Average Error Rate = 0.127501
+# Error Rate ~= 0.1 ~ 0.7
+# Average Error Rate = 0.335303
