@@ -99,6 +99,7 @@ for i in list(range(cycle)):
         print('Error Rate   ',ErrRate)
 
 print('Error Rate   ',ErrRate)
+print('Average Error Rate   ',np.sum(ErrRate)/cycle)
 
 
 # Plot
@@ -108,4 +109,5 @@ plt.hist(myhist, bins='auto', range=(0,1))
 plt.title("Error Rate - Frequency Plot")
 plt.show()
 
-# error rate ~= 0.1 ~ 0.2
+# Error Rate ~= 0.1 ~ 0.2
+# Average Error Rate = 0.127501
